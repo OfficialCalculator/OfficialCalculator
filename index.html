@@ -1,3 +1,4 @@
+<! ChatGPT Made this (ALSO THIS IS NOT A PROPER CALCULATOR THIS HAS AN ENTIRELY DIFFERENT PURPOSE DO NOT USE THIS IF U WANT A REAL CALCULATOR) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,6 +34,29 @@
       font-size: 18px;
       margin: 5px;
     }
+
+    #downloadButton {
+      display: none;
+      padding: 15px 20px;
+      font-size: 16pt;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 600;
+      color: white;
+      background-color: #007bff;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 600px) {
+      #calculator {
+        display: none;
+      }
+
+      #downloadButton {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body>
@@ -61,6 +85,8 @@
   <input type="button" value="÷" onclick="appendToDisplay('/'); updateSymbol('÷')">
 </div>
 
+<div id="downloadButton" onclick="downloadFile()">Download</div>
+
 <script>
   function appendToDisplay(value) {
     var display = document.getElementById('display');
@@ -76,7 +102,8 @@
     try {
       var display = document.getElementById('display');
       var mathExpression = display.value.replace(/×/g, '*').replace(/÷/g, '/');
-      display.value = eval(mathExpression);
+      display.value = mathExpression + "=" + eval(mathExpression);
+      checkSecretCode(display.value);
     } catch (error) {
       display.value = 'Error';
     }
@@ -87,10 +114,23 @@
   }
 
   function clearOnStart() {
+    // Clear the display when starting to type a new equation after pressing equals
     var displayValue = document.getElementById('display').value;
     if (displayValue.includes('=')) {
       document.getElementById('display').value = '';
     }
+  }
+
+  function checkSecretCode(value) {
+    if (value.includes('12321')) {
+      document.getElementById('calculator').style.display = 'none';
+      document.getElementById('downloadButton').style.display = 'block';
+    }
+  }
+
+  function downloadFile() {
+    // This is where i put the download link
+    window.location.href = "https://drive.google.com/uc?id=1JuZuOzFiY21Bnv8pBklTNviD6phwSD9N&export=download";
   }
 </script>
 
